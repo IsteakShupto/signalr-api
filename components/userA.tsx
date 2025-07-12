@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useSignalR } from "../hooks/useSignalR";
-// import { LocateIcon } from "lucide-react";
+import { LocateIcon } from "lucide-react";
 
 export default function UserA() {
   const [name, setName] = useState("isteakahmedshupto@gmail.com");
@@ -10,23 +10,62 @@ export default function UserA() {
   const [lon, setLon] = useState(90.4125);
   const { sendLocation } = useSignalR();
 
+  const [isSending, setIsSending] = useState(false);
+
   useEffect(() => {
     const interval = setInterval(() => {
       sendLocation(lat, lon, name);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [lat, lon, name, sendLocation]);
+
+  const geoLocation = () => {
+    if (!navigator.geolocation) {
+      console.warn(`Geolocation not supported!`);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLat(pos.coords.latitude);
+        setLon(pos.coords.longitude);
+      },
+      (err) => console.error(`Error getting location`, err),
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      }
+    );
+  };
+
+  const sendLocationViaGps = async () => {
+    await geoLocation();
+
+    if (!lat || !lon) {
+      console.warn(`Not ready to send location`);
+      return;
+    }
+
+    try {
+      setIsSending(true);
+      sendLocation(lat, lon, name);
+    } catch (error) {
+      console.error(`Sending lat / lon failed`, error);
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   const handleLocation = () => {
     sendLocation(lat, lon, name);
   };
 
   return (
-    <div className="p-4 w-[500px]">
+    <div className="p-4 w-[220px] md:w-[500px]">
       <h2 className="text-xl font-bold">User A (Sender)</h2>
       <div className="border-b border-neutral-300 pb-4">
-        <p className="my-1.5 text-lg">Email: {name}</p>
+        <p className="my-1.5">Email: {name}</p>
         <p className="italic">
           <span className="underline underline-offset-2">
             Latitude: {lat.toFixed(6)}
@@ -37,7 +76,7 @@ export default function UserA() {
           </span>
         </p>
       </div>
-      <div className="mt-1.5 p-2.5 border-b border-neutral-300 pb-4">
+      <div className="mt-1.5 p-2.5 pb-4">
         <div className="flex flex-col mb-1.5">
           <label htmlFor="email" className="font-semibold mb-1.5">
             Email
@@ -81,11 +120,25 @@ export default function UserA() {
           Send email & location
         </button>
       </div>
-      {/* <div>
-        <button className="btn mt-5">
-          <LocateIcon /> Send your location
+      <div className="flex items-center gap-4">
+        <div className="flex-grow border-t border-gray-300" />
+        <p className="text-center text-2xl font-semibold">OR</p>
+        <div className="flex-grow border-t border-gray-300" />
+      </div>
+      <div className="mx-auto w-fit">
+        <button className="btn mt-5" onClick={sendLocationViaGps}>
+          {isSending ? (
+            <span>
+              Sending your location{" "}
+              <span className="loading loading-xs loading-spinner"></span>
+            </span>
+          ) : (
+            <>
+              <LocateIcon /> Detect & Send your location
+            </>
+          )}
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }

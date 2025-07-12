@@ -8,7 +8,7 @@ const UserB = dynamic(() => import("@/components/userB"), { ssr: false });
 export default function LocationSharing() {
   return (
     <>
-      <div className="flex">
+      <div className="flex flex-row">
         <UserA />
         <UserB />
       </div>
