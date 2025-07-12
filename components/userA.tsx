@@ -69,7 +69,7 @@ export default function UserA() {
   };
 
   return (
-    <div className="p-4 w-[220px] md:w-[500px]">
+    <div className="p-4 w-[325px] md:w-[500px]">
       <h2 className="text-xl font-bold">User A (Sender)</h2>
       <div className="border-b border-neutral-300 pb-4">
         <p className="my-1.5">Email: {name}</p>
