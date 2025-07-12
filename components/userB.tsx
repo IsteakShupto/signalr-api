@@ -27,13 +27,21 @@ export default function UserB() {
     userName: string;
   } | null>(null);
 
+  useEffect(() => {
+    setLocation({
+      lat: 23.8103,
+      lon: 90.4125,
+      userName: "isteakahmedshupto@gmail.com",
+    });
+  }, []);
+
   useSignalR((data: { lat: number; lon: number; userName: string }) => {
     console.log(`Received:`, data);
     setLocation(data);
   });
 
   return (
-    <div className="p-4 h-[500px] w-full">
+    <div className={`p-4 h-[500px] w-full  ${location ? "block" : "hidden"}`}>
       <h2 className="text-xl font-bold mb-2">User B (Receiver)</h2>
 
       {location ? (

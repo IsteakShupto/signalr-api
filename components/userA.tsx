@@ -1,64 +1,71 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSignalR } from "../hooks/useSignalR";
 import { LocateIcon } from "lucide-react";
 
 export default function UserA() {
-  const [name, setName] = useState("isteakahmedshupto@gmail.com");
-  const [lat, setLat] = useState(23.8103);
-  const [lon, setLon] = useState(90.4125);
+  const [name, setName] = useState<string | null>(null);
+  const [lat, setLat] = useState<number | null>(null);
+  const [lon, setLon] = useState<number | null>(null);
   const { sendLocation } = useSignalR();
 
   const [isSending, setIsSending] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      sendLocation(lat, lon, name);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [lat, lon, name, sendLocation]);
-
-  const geoLocation = () => {
-    if (!navigator.geolocation) {
-      console.warn(`Geolocation not supported!`);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setLat(pos.coords.latitude);
-        setLon(pos.coords.longitude);
-      },
-      (err) => console.error(`Error getting location`, err),
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
+  const geoLocation = (): Promise<{ lat: number; lon: number }> => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        console.warn("Geolocation not supported!");
+        return reject("Geolocation not supported");
       }
-    );
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lon = pos.coords.longitude;
+          resolve({ lat, lon });
+        },
+        (err) => {
+          console.error("Error getting location", err);
+          reject(err);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+        }
+      );
+    });
   };
 
   const sendLocationViaGps = async () => {
-    await geoLocation();
-
-    if (!lat || !lon) {
-      console.warn(`Not ready to send location`);
-      return;
-    }
-
     try {
       setIsSending(true);
-      sendLocation(lat, lon, name);
+      const { lat, lon } = await geoLocation();
+      sendLocation(lat, lon, name || "isteakahmedshupto@gmail.com");
     } catch (error) {
-      console.error(`Sending lat / lon failed`, error);
+      console.error("Could not retrieve or send location", error);
     } finally {
       setIsSending(false);
     }
   };
 
   const handleLocation = () => {
+    if (name === null) {
+      alert("Please insert name / email");
+      return;
+    }
+    if (lat === null) {
+      alert("Please insert latitude value");
+      return;
+    }
+    if (lon === null) {
+      alert("Please insert longitude value");
+      return;
+    }
     sendLocation(lat, lon, name);
+    setLat(null);
+    setLon(null);
+    setName(null);
   };
 
   return (
@@ -68,11 +75,11 @@ export default function UserA() {
         <p className="my-1.5">Email: {name}</p>
         <p className="italic">
           <span className="underline underline-offset-2">
-            Latitude: {lat.toFixed(6)}
+            Latitude: {lat?.toFixed(6)}
           </span>{" "}
           -{" "}
           <span className="underline underline-offset-2">
-            Longitude: {lon.toFixed(6)}
+            Longitude: {lon?.toFixed(6)}
           </span>
         </p>
       </div>
@@ -87,6 +94,7 @@ export default function UserA() {
             className="input"
             placeholder="Ex. isteakahmedshupto@gmail.com"
             onChange={(e) => setName(e.target.value)}
+            value={name || ""}
           />
         </div>
         <div className="flex flex-col mb-1.5">
@@ -99,6 +107,7 @@ export default function UserA() {
             className="input"
             placeholder="Enter lat, ex: 25.737"
             onChange={(e) => setLat(Number(e.target.value))}
+            value={lat || ""}
           />
         </div>
         <div className="flex flex-col">
@@ -111,6 +120,7 @@ export default function UserA() {
             className="input"
             placeholder="Enter lon, ex: 25.737"
             onChange={(e) => setLon(Number(e.target.value))}
+            value={lon || ""}
           />
         </div>
         <button
