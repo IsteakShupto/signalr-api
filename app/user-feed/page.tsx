@@ -6,6 +6,7 @@ import { useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { FixedSizeGrid as Grid } from "react-window";
 import User from "@/components/user";
+import { User2 } from "lucide-react";
 
 const fetchUsers = async ({ pageParam = 0 }) => {
   const res = await fetch(
@@ -87,8 +88,10 @@ export default function UserFeedPage() {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto h-[85vh] px-4 sm:px-6 shadow-2xl rounded-2xl">
-      <h1 className="text-2xl font-bold mb-4 pt-5 pb-3 border-b border-neutral-500 flex flex-wrap justify-between">
-        Virtualized User Feed{" "}
+      <h1 className="text-2xl mb-4 pt-5 pb-3 border-b border-neutral-300 flex flex-wrap justify-between">
+        <span className="flex items-center gap-2">
+          <User2 /> Virtualized User Feed{" "}
+        </span>
         {isFetchingNextPage && (
           <p>
             Fetching data{" "}

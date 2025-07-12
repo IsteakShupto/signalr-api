@@ -51,7 +51,7 @@ export default function UserA() {
 
   const handleLocation = () => {
     if (name === null) {
-      alert("Please insert name / email");
+      alert("Please insert email / username");
       return;
     }
     if (lat === null) {
@@ -124,7 +124,7 @@ export default function UserA() {
           />
         </div>
         <button
-          className="btn btn-primary mt-3.5 mb-1.5"
+          className="btn btn-accent mt-3.5 mb-1.5"
           onClick={handleLocation}
         >
           Send email & location
