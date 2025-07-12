@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm block md:flex">
+      <nav className="navbar bg-base-100 shadow-sm block md:flex">
         <div className="flex-none">
           <span className="btn btn-ghost text-xl">
             <Link href={"/"}>SignalR / API</Link>
@@ -40,7 +40,7 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-      </div>
+      </nav>
     </>
   );
 }
