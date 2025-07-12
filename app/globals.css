@@ -3,3 +3,13 @@
 @plugin "daisyui" {
   themes: dark --default, light --prefersdark;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#__next {
+  height: 100%;
+}
