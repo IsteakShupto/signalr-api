@@ -12,16 +12,12 @@ export default function Navbar() {
         <ul className="bg-base-100 rounded-t-none p-2 flex gap-5">
           <li>
             <Link href={"/"}>
-              <span className="underline underline-offset-2 decoration-indigo-500">
-                Userfeed
-              </span>
+              <span className="btn">Task: Location sharing</span>
             </Link>
           </li>
           <li>
             <Link href={"/location-sharing"}>
-              <span className="underline underline-offset-2 decoration-indigo-500">
-                Location sharing
-              </span>
+              <span className="btn">Task: Userfeed</span>
             </Link>
           </li>
         </ul>
