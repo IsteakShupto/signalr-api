@@ -79,7 +79,7 @@ export default function UserA() {
       <div className="mt-1.5 p-2.5 pb-4">
         <div className="flex flex-col mb-1.5">
           <label htmlFor="email" className="font-semibold mb-1.5">
-            Email
+            Email / Username
           </label>
           <input
             type="text"
