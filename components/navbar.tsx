@@ -18,7 +18,7 @@ export default function Navbar() {
             </Link>
           </li>
           <li>
-            <Link href={"/"}>
+            <Link href={"/location-sharing"}>
               <span className="underline underline-offset-2 decoration-indigo-500">
                 Location sharing
               </span>
