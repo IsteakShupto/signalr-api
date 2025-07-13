@@ -12,6 +12,12 @@ export default function UserA() {
 
   const [isSending, setIsSending] = useState(false);
 
+  const [errors, setErrors] = useState<{
+    name?: string;
+    lat?: string;
+    lon?: string;
+  }>({});
+
   const geoLocation = (): Promise<{ lat: number; lon: number }> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
@@ -49,20 +55,19 @@ export default function UserA() {
     }
   };
 
+  const validateErrors = () => {
+    const newErrors: typeof errors = {};
+    if (!name || name.trim() === "")
+      newErrors.name = "Username / email is required";
+    if (lat === null || isNaN(lat)) newErrors.lat = "Latitude is required";
+    if (lon === null || isNaN(lon)) newErrors.lon = "Longitude is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleLocation = () => {
-    if (name === null) {
-      alert("Please insert email / username");
-      return;
-    }
-    if (lat === null) {
-      alert("Please insert latitude value");
-      return;
-    }
-    if (lon === null) {
-      alert("Please insert longitude value");
-      return;
-    }
-    sendLocation(lat, lon, name);
+    if (!validateErrors()) return;
+    sendLocation(lat!, lon!, name!);
     setLat(null);
     setLon(null);
     setName(null);
@@ -97,6 +102,9 @@ export default function UserA() {
             value={name || ""}
             aria-required="true"
           />
+          {errors.name && (
+            <p className="text-sm text-red-500 mt-1">{errors.name}</p>
+          )}
         </div>
         <div className="flex flex-col mb-1.5">
           <label htmlFor="lat" className="font-semibold mb-1.5">
@@ -106,11 +114,14 @@ export default function UserA() {
             type="number"
             id="lat"
             className="input"
-            placeholder="Enter lat, ex: 25.737"
+            placeholder="Enter lat, ex: 23.8041"
             onChange={(e) => setLat(Number(e.target.value))}
             value={lat || ""}
             aria-required="true"
           />
+          {errors.lat && (
+            <p className="text-sm text-red-500 mt-1">{errors.lat}</p>
+          )}
         </div>
         <div className="flex flex-col">
           <label htmlFor="lon" className="font-semibold mb-1.5">
@@ -120,11 +131,14 @@ export default function UserA() {
             type="number"
             id="lon"
             className="input"
-            placeholder="Enter lon, ex: 25.737"
+            placeholder="Enter lon, ex: 90.4152"
             onChange={(e) => setLon(Number(e.target.value))}
             value={lon || ""}
             aria-required="true"
           />
+          {errors.lon && (
+            <p className="text-sm text-red-500 mt-1">{errors.lon}</p>
+          )}
         </div>
         <button
           className="btn btn-accent mt-3.5 mb-1.5"
