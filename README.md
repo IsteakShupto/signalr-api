@@ -1,6 +1,6 @@
 ## SignalR & Infinite Scroll – Real-time Location & API Integration (Next.js)
 
-### 👀 Quick View of the Web App
+### Quick View of the Web App
 
 Check the live demo here 👉 [https://signalr-api.vercel.app/](https://signalr-api.vercel.app/)
 
