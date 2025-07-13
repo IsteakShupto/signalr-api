@@ -95,6 +95,7 @@ export default function UserA() {
             placeholder="Ex. isteakahmedshupto@gmail.com"
             onChange={(e) => setName(e.target.value)}
             value={name || ""}
+            aria-required="true"
           />
         </div>
         <div className="flex flex-col mb-1.5">
@@ -108,6 +109,7 @@ export default function UserA() {
             placeholder="Enter lat, ex: 25.737"
             onChange={(e) => setLat(Number(e.target.value))}
             value={lat || ""}
+            aria-required="true"
           />
         </div>
         <div className="flex flex-col">
@@ -121,6 +123,7 @@ export default function UserA() {
             placeholder="Enter lon, ex: 25.737"
             onChange={(e) => setLon(Number(e.target.value))}
             value={lon || ""}
+            aria-required="true"
           />
         </div>
         <button
