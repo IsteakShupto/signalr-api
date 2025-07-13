@@ -87,7 +87,7 @@ export default function UserFeedPage() {
   }
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto h-[85vh] px-4 sm:px-6 shadow-2xl rounded-2xl">
+    <section className="w-full max-w-screen-xl mx-auto h-[85vh] px-4 sm:px-6 shadow-2xl rounded-2xl">
       <h1 className="text-2xl mb-4 pt-5 pb-3 border-b border-neutral-300 flex flex-wrap justify-between">
         <span className="flex items-center gap-2">
           <User2 /> Virtualized User Feed{" "}
@@ -143,6 +143,6 @@ export default function UserFeedPage() {
           );
         }}
       </AutoSizer>
-    </div>
+    </section>
   );
 }

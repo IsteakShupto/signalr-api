@@ -8,7 +8,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <div
+    <section
       role="alert"
       className="min-h-screen flex flex-col justify-center items-center bg-gray-50 p-6 text-center font-grotesque"
     >
@@ -27,6 +27,6 @@ export default function Error({
       >
         Try Again
       </button>
-    </div>
+    </section>
   );
 }

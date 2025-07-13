@@ -26,7 +26,7 @@ type UserProps = {
 
 export default function User({ user }: UserProps) {
   return (
-    <div className="card">
+    <section className="card">
       <img
         src={user.image}
         alt={`${user.firstName} ${user.lastName}`}
@@ -124,6 +124,6 @@ export default function User({ user }: UserProps) {
           </form>
         </dialog>
       </div>
-    </div>
+    </section>
   );
 }
