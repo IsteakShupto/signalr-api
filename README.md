@@ -75,7 +75,6 @@ npm run dev
 
 - **UI Feedback:**
 
-  - Floating animation on live marker.
   - Smooth update transitions on the map.
 
 ---
