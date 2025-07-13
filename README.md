@@ -6,7 +6,7 @@ Check the live demo here 👉 [https://signalr-api.vercel.app/](https://signalr-
 
 ---
 
-### 🛠 Prerequisites
+### Prerequisites
 
 To run this project locally, you’ll need:
 
@@ -23,7 +23,7 @@ npm -v
 
 ---
 
-### ⚙️ Setup Instructions
+### Setup Instructions
 
 1. Open your terminal and go to the directory where you want to place the project.
 2. Clone the repo:
