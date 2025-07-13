@@ -87,7 +87,7 @@ npm run dev
 - **Pagination with Infinite Scrolling:**
 
   - Integrated **React Query’s `useInfiniteQuery()`** to fetch paginated users.
-  - Used **Intersection Observer** to load the next page when the bottom is reached.
+  - Used custom-built **Intersection Observer** tool to load the next page when the bottom is reached.
 
 - **Skeleton Loading & Virtualization:**
 
