@@ -70,7 +70,7 @@ export default function UserFeedPage() {
 
   if (isLoading) {
     return (
-      <div className="p-4 sm:p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-screen-xl">
+      <div className="w-full max-w-screen-xl mx-auto h-[85vh] px-4 sm:px-6 shadow-2xl rounded-2xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 9 }).map((_, index) => (
           <Skeleton key={index} />
         ))}

@@ -119,7 +119,6 @@ export default function User({ user }: UserProps) {
             </div>
           </div>
 
-          {/* Enable close on outside click */}
           <form method="dialog" className="modal-backdrop">
             <button>Close</button>
           </form>
