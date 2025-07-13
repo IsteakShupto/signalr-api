@@ -36,8 +36,9 @@ export default function UserA() {
           reject(err);
         },
         {
-          enableHighAccuracy: true,
+          enableHighAccuracy: false,
           timeout: 10000,
+          maximumAge: 60000,
         }
       );
     });
